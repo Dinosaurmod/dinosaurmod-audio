@@ -255,6 +255,7 @@ class SoundPlayer extends EventEmitter {
      *
      * If the sound is already playing it will stop playback with a quick fade
      * out.
+     * @param {number} startSeconds
      */
     play (startSeconds) {
         if (this.isStarting) {
@@ -273,7 +274,7 @@ class SoundPlayer extends EventEmitter {
             this.initialize();
         }
 
-        if (typeof startSeconds === "number") {
+        if (typeof startSeconds === 'number') {
             this.outputNode.start(0, startSeconds);
         } else {
             this.outputNode.start();
