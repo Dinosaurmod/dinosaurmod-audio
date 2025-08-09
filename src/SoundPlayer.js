@@ -255,7 +255,7 @@ class SoundPlayer extends EventEmitter {
      *
      * If the sound is already playing it will stop playback with a quick fade
      * out.
-     * @param {number} startSeconds
+     * @param {number} startSeconds - the value that defines when the sound starts playing
      */
     play (startSeconds) {
         if (this.isStarting) {

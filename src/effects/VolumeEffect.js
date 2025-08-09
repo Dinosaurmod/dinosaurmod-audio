@@ -37,7 +37,7 @@ class VolumeEffect extends Effect {
      * Set the effects value.
      * @private
      * @param {number} value - new value to set effect to
-     * @param {number} additionalDecay
+     * @param {number} additionalDecay - additional decay
      */
     _set (value, additionalDecay) {
         this.value = value;
