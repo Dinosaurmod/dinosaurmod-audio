@@ -348,7 +348,7 @@ class SoundPlayer extends EventEmitter {
     /**
      * Pause playback.
      */
-    pause() {
+    pause () {
         if (!this.isPlaying) return;
 
         this._pausedAt += this.audioEngine.currentTime - this._startedAt;
@@ -361,7 +361,7 @@ class SoundPlayer extends EventEmitter {
     /**
      * Resumes playback.
      */
-    resume() {
+    resume () {
         if (this.isPlaying || this._pausedAt >= this.buffer.duration) return;
 
         if (this.initialized) {
@@ -376,7 +376,7 @@ class SoundPlayer extends EventEmitter {
         this.isPlaying = true;
         this._startedAt = this.audioEngine.currentTime;
 
-        const { currentTime, DECAY_DURATION } = this.audioEngine;
+        const {currentTime, DECAY_DURATION} = this.audioEngine;
         this.startingUntil = currentTime + (DECAY_DURATION + this.stopFadeDecay);
 
         this.emit('play');
