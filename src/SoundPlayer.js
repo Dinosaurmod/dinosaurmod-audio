@@ -92,6 +92,18 @@ class SoundPlayer extends EventEmitter {
          */
         this.stopFadeDecay = 0;
 
+        /**
+         * dinosaurmod: Time offset into the buffer where pause happened.
+         * @type {number}
+         */
+        this._pausedAt = 0;
+
+        /**
+         * The audioEngine.currentTime when playback started.
+         * @type {number}
+         */
+        this._startedAt = 0;
+
         // handleEvent is a EventTarget api for the DOM, however the
         // web-audio-test-api we use uses an addEventListener that isn't
         // compatable with object and requires us to pass this bound function
@@ -274,6 +286,9 @@ class SoundPlayer extends EventEmitter {
             this.initialize();
         }
 
+        this._pausedAt = 0;
+        this._startedAt = this.audioEngine.currentTime;
+
         if (typeof startSeconds === 'number') {
             this.outputNode.start(0, startSeconds);
         } else {
@@ -328,6 +343,43 @@ class SoundPlayer extends EventEmitter {
         this.startingUntil = 0;
 
         this.emit('stop');
+    }
+
+    /**
+     * Pause playback.
+     */
+    pause() {
+        if (!this.isPlaying) return;
+
+        this._pausedAt += this.audioEngine.currentTime - this._startedAt;
+
+        this.stopImmediately();
+
+        this.isPlaying = false;
+    }
+
+    /**
+     * Resumes playback.
+     */
+    resume() {
+        if (this.isPlaying || this._pausedAt >= this.buffer.duration) return;
+
+        if (this.initialized) {
+            this._createSource();
+        } else {
+            this.initialize();
+        }
+
+        // Start from paused offset
+        this.outputNode.start(0, this._pausedAt);
+
+        this.isPlaying = true;
+        this._startedAt = this.audioEngine.currentTime;
+
+        const { currentTime, DECAY_DURATION } = this.audioEngine;
+        this.startingUntil = currentTime + (DECAY_DURATION + this.stopFadeDecay);
+
+        this.emit('play');
     }
 
     /**
