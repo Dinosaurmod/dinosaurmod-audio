@@ -3,6 +3,6 @@ module.exports = {
     extends: ['scratch', 'scratch/es6'],
     env: {browser: true},
     rules: {
-        "linebreak-style": ["off"]
+        'linebreak-style': ['off']
     }
 };

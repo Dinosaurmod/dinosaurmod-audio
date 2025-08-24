@@ -123,7 +123,6 @@ class Timer {
     setTimer (seconds) {
         if (this._pausedTime) {
             this.startTime = this.nowObj.now() - (seconds * 1000);
-            
         } else {
             this._pausedTime = seconds * 1000;
         }
