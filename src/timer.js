@@ -95,7 +95,7 @@ class Timer {
     /**
      * pause the timer
      */
-    pause() {
+    pause () {
         if (this._pausedTime) return;
         this._pausedTime = this.timeElapsed();
     }
@@ -103,7 +103,7 @@ class Timer {
     /**
      * unpause the timer
      */
-    play() {
+    play () {
         if (!this._pausedTime) return;
         this.startTime = this.nowObj.now() - this._pausedTime;
         this._pausedTime = null;
@@ -121,10 +121,11 @@ class Timer {
      * @param {number} seconds - number of seconds to set the timer to
      */
     setTimer (seconds) {
-        if (this._pausedTime !== null) {
-            this._pausedTime = seconds * 1000;
-        } else {
+        if (this._pausedTime) {
             this.startTime = this.nowObj.now() - (seconds * 1000);
+            
+        } else {
+            this._pausedTime = seconds * 1000;
         }
     }
 

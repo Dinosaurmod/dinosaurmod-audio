@@ -297,7 +297,7 @@ class SoundPlayer extends EventEmitter {
         this._startedAt = this.audioEngine.currentTime;
 
         this.currentTime = new Timer({now: () => Date.now()});
-        this.currentTime.start()
+        this.currentTime.start();
 
         if (typeof startSeconds === 'number') {
             this.outputNode.start(0, startSeconds);
