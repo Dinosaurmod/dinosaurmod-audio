@@ -148,4 +148,17 @@ class Timer {
     }
 }
 
-module.exports = Timer;
+class EmptyTimer {
+    constructor () {
+        this.startTime = 0;
+    }
+
+    timeElapsed () {
+        return this.startTime;
+    }
+}
+
+module.exports = {
+    Timer,
+    EmptyTimer
+};

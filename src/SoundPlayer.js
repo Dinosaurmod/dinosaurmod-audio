@@ -1,7 +1,7 @@
 const {EventEmitter} = require('events');
 
 const VolumeEffect = require('./effects/VolumeEffect');
-const Timer = require('./timer');
+const {Timer, EmptyTimer} = require('./timer');
 
 /**
  * Name of event that indicates playback has ended.
@@ -107,9 +107,9 @@ class SoundPlayer extends EventEmitter {
 
         /**
          * The current time position of the sound.
-         * @type {object|number}
+         * @type {any}
          */
-        this.currentTime = 0;
+        this.currentTime = new EmptyTimer();
 
         // handleEvent is a EventTarget api for the DOM, however the
         // web-audio-test-api we use uses an addEventListener that isn't
@@ -338,7 +338,7 @@ class SoundPlayer extends EventEmitter {
         const {currentTime, DECAY_DURATION} = this.audioEngine;
         taken.outputNode.stop(currentTime + (DECAY_DURATION + this.stopFadeDecay));
 
-        this.currentTime = 0;
+        this.currentTime = new EmptyTimer();
     }
 
     /**
@@ -356,7 +356,7 @@ class SoundPlayer extends EventEmitter {
 
         this.emit('stop');
 
-        this.currentTime = 0;
+        this.currentTime = new EmptyTimer();
     }
 
     /**
@@ -406,7 +406,7 @@ class SoundPlayer extends EventEmitter {
      */
     finished () {
         return new Promise(resolve => {
-            this.currentTime = 0;
+            this.currentTime = new EmptyTimer();
             this.once('stop', resolve);
         });
     }
