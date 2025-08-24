@@ -406,6 +406,7 @@ class SoundPlayer extends EventEmitter {
      */
     finished () {
         return new Promise(resolve => {
+            this.currentTime = 0;
             this.once('stop', resolve);
         });
     }
