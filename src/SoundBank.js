@@ -139,7 +139,7 @@ class SoundBank {
     resume (target, soundId) {
         if (this.playerTargets.get(soundId) === target) {
             this.soundPlayers[soundId].resume();
-            this.playSound(target, soundId, this.currentTime(target, soundId))
+            this.playSound(target, soundId, this.currentTime(target, soundId));
         }
     }
 
