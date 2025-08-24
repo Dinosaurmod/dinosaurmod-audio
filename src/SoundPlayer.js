@@ -301,6 +301,7 @@ class SoundPlayer extends EventEmitter {
 
         if (typeof startSeconds === 'number') {
             this.outputNode.start(0, startSeconds);
+            this.currentTime.setTimer(startSeconds)
         } else {
             this.outputNode.start();
         }
