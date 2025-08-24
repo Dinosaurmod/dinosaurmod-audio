@@ -367,9 +367,7 @@ class SoundPlayer extends EventEmitter {
 
         this._pausedAt += this.audioEngine.currentTime - this._startedAt;
 
-        if (this.currentTime !== new EmptyTimer()) {
-            this.currentTime.pause()
-        };
+        this.currentTime.pause();
 
         this.stopImmediately();
 
