@@ -367,7 +367,9 @@ class SoundPlayer extends EventEmitter {
 
         this._pausedAt += this.audioEngine.currentTime - this._startedAt;
 
-        this.currentTime.pause();
+        if (this.currentTime !== new EmptyTimer()) {
+            this.currentTime.pause()
+        };
 
         this.stopImmediately();
 
@@ -406,8 +408,10 @@ class SoundPlayer extends EventEmitter {
      */
     finished () {
         return new Promise(resolve => {
-            this.currentTime = new EmptyTimer();
-            this.once('stop', resolve);
+            this.once('stop', () => {
+                resolve();
+                this.currentTime = new EmptyTimer();
+            });
         });
     }
 
