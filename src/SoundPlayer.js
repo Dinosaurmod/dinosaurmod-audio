@@ -111,6 +111,12 @@ class SoundPlayer extends EventEmitter {
          */
         this.currentTime = new EmptyTimer();
 
+         /**
+         * Is the sound paused or not?
+         * @type {boolean}
+         */
+        this.isPaused = false;
+
         // handleEvent is a EventTarget api for the DOM, however the
         // web-audio-test-api we use uses an addEventListener that isn't
         // compatable with object and requires us to pass this bound function
@@ -376,6 +382,7 @@ class SoundPlayer extends EventEmitter {
         this.currentTime = this.tempCurrentTime;
 
         this.isPlaying = false;
+        this.isPaused = true;
     }
 
     /**
@@ -395,6 +402,7 @@ class SoundPlayer extends EventEmitter {
 
         this.isPlaying = true;
         this._startedAt = this.audioEngine.currentTime;
+        this.isPaused = false;
 
         const {currentTime, DECAY_DURATION} = this.audioEngine;
         this.startingUntil = currentTime + (DECAY_DURATION + this.stopFadeDecay);
@@ -413,6 +421,7 @@ class SoundPlayer extends EventEmitter {
             this.once('stop', () => {
                 resolve();
                 this.currentTime = new EmptyTimer();
+                this.isPaused = false;
             });
         });
     }

@@ -149,6 +149,12 @@ class SoundBank {
         }
     }
 
+    isPaused (target, soundId) {
+        if (this.playerTargets.get(soundId) === target) {
+            return this.soundPlayers[soundId].isPaused;
+        }
+    }
+
     /**
      * Stop all sounds for all targets or a specific target.
      * @param {Target|string} target - a symbol for all targets or the target
