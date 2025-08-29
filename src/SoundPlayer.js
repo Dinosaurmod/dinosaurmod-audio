@@ -111,7 +111,7 @@ class SoundPlayer extends EventEmitter {
          */
         this.currentTime = new EmptyTimer();
 
-         /**
+        /**
          * Is the sound paused or not?
          * @type {boolean}
          */
